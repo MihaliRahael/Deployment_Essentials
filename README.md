@@ -28,9 +28,7 @@ ETL stage (Extract transform and load) – Data processing pipeline. Data engine
 
 Once featurized data is ready, we need to start modelling (say LR here). One design challenge is volume of data. Check whether the model’s training performance if the volume increases as the below graph. Here we can see that above 300k points there is no considerable improvement in performance. In that case sample properly and train on 300K points.
 
-Perf metric
-
-50k 100k 200k 300k 400k Size of data
+![image](https://user-images.githubusercontent.com/106816732/213475004-4796d507-9fc7-41de-833b-b08f2f4a5202.png)
 
 But if performance is increasing as points increase we have 3 options. 1) if we have small amount of data which may fit in RAM (32GB box) we can use sklearn or Xgboost 2) if data is of medium size which fits in HDD, we might need to do some sampling (which may decrease the performance as well). We can run the model in RAM itself. For example, divide the data into 3 parts. Each part may fit in RAM. Train LR1, LR2,LR3 and at the end take average or use any aggregation of all models to get the final one. This approach works mostly for simple algos like LR. 3) Real challenge if data is large like 10M/100M/1B points which my require 1TB/10TB or more. Several methods are there but common approach is use Spark ML. Spark is distributed computing platform. Ie data will be distributed among a set of discrete boxes having individual CPU,RAM,HDD and connected through a network and interbox data transfer is possible.
 
@@ -78,27 +76,17 @@ The model in ML server could be in multiple form like persistent python object (
 1.  Open File Open Folder and upload the project folder to the VS Code explorer
 2.  README.md (Sample format shown below)
 
-**\# Boston-House-Pricing**
+![image](https://user-images.githubusercontent.com/106816732/213475766-71eab705-7220-46a5-bc71-2af99c683e5d.png)
 
-**\#\# Software and Tools requirement**
-
-1\. [Github Account](https://github.com)
-
-2\. [Heroku Account](https://heroku.com)
-
-3\. [Visual Studio Code IDE](https://code.visualstudio.com/)
-
-4\. [Git CLI](https://git-scm.com/book/en/v2/Getting-Started-The-Command-Line)
-
-1.  Creating an environment for the whole project.
-2.  New terminal Select command prompt “conda create -p venv python==3.7 -y”
-3.  Make sure the workspace folder is under the new environment.
-4.  Activate the environment using the command “conda activate venv/” and deactivate using “conda deactivate”
-5.  We can manually set the ipynb file to venv environment from the upper right portion. (Select venv (Python 3.7.0)
-6.  Create requirements.txt file under the folder we are working. Define the libraries we require for the project. Run the command “pip install -r requirements.txt” in the terminal
-7.  Configure Git CLI and git add/commit/push. This step is necessary in order to push/commit our code to the repo
-8.  Create **setup.py** file (install everything in local environment) and edit the information. There are mainly two uses for this file. Sometimes even if we import the library, path defined is correct we might get error saying ‘module not found’. To avoid that we need to setup our project in such a way that our code can be updated or may be utilized as library. Things written inside setup.py will help to avoid this error.
-9.  We define Fast API (or Flask API) inside **main.py**. Once a model is created, that model will be like a file, precompiled file (pkl file). This file will be deployed in cloud and an API will be created to communicate with that model. When an API is created we just need to pass the input, model will give the o/p
+3.  Creating an environment for the whole project.
+*  New terminal Select command prompt “conda create -p venv python==3.7 -y”
+*  Make sure the workspace folder is under the new environment.
+*  Activate the environment using the command “conda activate venv/” and deactivate using “conda deactivate”
+*  We can manually set the ipynb file to venv environment from the upper right portion. (Select venv (Python 3.7.0)
+4.  Create requirements.txt file under the folder we are working. Define the libraries we require for the project. Run the command “pip install -r requirements.txt” in the terminal
+5.  Configure Git CLI and git add/commit/push. This step is necessary in order to push/commit our code to the repo
+6.  Create **setup.py** file (install everything in local environment) and edit the information. There are mainly two uses for this file. Sometimes even if we import the library, path defined is correct we might get error saying ‘module not found’. To avoid that we need to setup our project in such a way that our code can be updated or may be utilized as library. Things written inside setup.py will help to avoid this error.
+7.  We define Fast API (or Flask API) inside **main.py**. Once a model is created, that model will be like a file, precompiled file (pkl file). This file will be deployed in cloud and an API will be created to communicate with that model. When an API is created we just need to pass the input, model will give the o/p
 
 **Error Note :** Whenever we run a git command in CMD (windows or in visual studio code), if we face an error saying “‘git’ is not recognized as an internal or external command”, follow the steps.
 
@@ -152,19 +140,7 @@ Now we need to do some set up in EC2 Ubuntu machine.
 
 -   Install Docker – commands as follows
 
-    sudo apt-get update -y
-
-    sudo apt-get upgrade
-
-    curl -fsSL https://get.docker.com -o get-docker.sh
-
-    ls
-
-    sudo sh get-docker.sh
-
-    sudo usermod -aG docker ubuntu
-
-    newgrp docker
+    ![image](https://user-images.githubusercontent.com/106816732/213477129-1545e7c6-ca21-4d70-8bfb-abd1a6d58fa3.png)
 
 Whenever we use docker commands we would use sudo. Last two commands is in order to avoid that repetitive usage.
 
@@ -206,20 +182,18 @@ Github action is nothing but CICD pipeline ie as soon as I commit something to g
 
 **What is a self-hosted runner?**
 
-In GitHub, the runner is the application that runs a job from a GitHub Actions workflow. The runner can run on the hosted machine pools or on self-hosted environments. A project may want to use a self-hosted runner which, according to GitHub, offers
-
-more control of hardware, operating system, and software tools than GitHub-hosted runners provide. With self-hosted runners, you can choose to create a custom hardware configuration with more processing power or memory to run larger jobs, install software available on your local network, and choose an operating system not offered by GitHub-hosted runners. Self-hosted runners can be physical, virtual, container, on-premises, or in a cloud.
+In GitHub, the runner is the application that runs a job from a GitHub Actions workflow. The runner can run on the hosted machine pools or on self-hosted environments. A project may want to use a self-hosted runner which, according to GitHub, offers more control of hardware, operating system, and software tools than GitHub-hosted runners provide. With self-hosted runners, you can choose to create a custom hardware configuration with more processing power or memory to run larger jobs, install software available on your local network, and choose an operating system not offered by GitHub-hosted runners. Self-hosted runners can be physical, virtual, container, on-premises, or in a cloud.
 
 Procedure
 
 -   Open the github repo we created Settings Actions Runners New self-hosted runner
 -   Select Runner image as Linux. We can see the commands which needs to run in server to make EC2 instance a self host runner. In between while asking for entering the name of runner group, just press enter for default and for name of runner, use self-hosted (as shown below).
 
-![](media/d659b7de79efd8008c477e23486201d1.png)
+![image](https://user-images.githubusercontent.com/106816732/213477446-bbdec5d9-3b11-41c7-a6b9-e63c0b1e6f7d.png)
 
 After this step follow the commands. To activate the runner we need to run ./run.sh
 
-![](media/305adb5732a3b365fdb54f6954db1fa3.png)
+![image](https://user-images.githubusercontent.com/106816732/213477488-63bd2c29-b9e9-4f57-89ba-3ea703e688c3.png)
 
 **Note** : We need to make sure self-hosted machine is available and up before deployment. Then only the deployment job inside github actions yaml will run. Settings Actions Runners Runners list should contain self-hosted and should be in green state (idle). If we break the AWS CLI in browser and close all the AWS pages, we can see self-hosted in offline mode.
 
