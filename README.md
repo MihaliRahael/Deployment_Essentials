@@ -253,9 +253,9 @@ Note : Commands in this portions will be running in our ec2 instance ie self-hos
 -   docker exec -it \<container id\> bash
 -   ls : will show all the files and folders of our source code which got created inside the image
 -   cd logs : will show all the logs
-1.  Check S3 bucket whether the code has synced.
-2.  Go to EC2 instance in UI. Check the Public IPV4 DNS in browser (check with http) (Don’t do the training using API)
-3.  Inorder to test the model or do the prediction :
+2.  Check S3 bucket whether the code has synced.
+3.  Go to EC2 instance in UI. Check the Public IPV4 DNS in browser (check with http) (Don’t do the training using API)
+4.  Inorder to test the model or do the prediction :
 -   In the main.py file, we have written a method for predict in which we are dealing with ModelResolver(). We just need to map the synced models URL in there. Code will predict using that model.
 
 **Interview Que**: How to reinstate the previously deployed image (ie need to dump newly deployed image and restate the old one)
@@ -281,15 +281,15 @@ There are basically multiple ways for deploying. One approach is using git actio
     -   We can check for any error in logs in More option
     -   Run the app.
 -   **Configure Github actions**
-1.  Create two folders “.github” and within that “workflows”. Create a file “main.yaml”
+*  Create two folders “.github” and within that “workflows”. Create a file “main.yaml”
 
 Reason : As soon as we push the entire files into the repo, github will execute all the workflows as defined inside main.yaml.
 
-1.  Goto github Select repository Settings Secrets Actions New Repository secret
-2.  Add HEROKU_API_KEY , HEROKU_APP_NAME and HEROKU_EMAIL. (Heroku API key is in account settings)
-3.  Commit and push all files from terminal
-4.  Go to the details from the green tick or orange dot to see the actions in details.
-5.  Go to Heroku and open app for testing. (Note that once we deployed using github actions and docker, our application in Heroku is running as a container otherwise it would be a python application)
+*  Goto github Select repository Settings Secrets Actions New Repository secret
+*  Add HEROKU_API_KEY , HEROKU_APP_NAME and HEROKU_EMAIL. (Heroku API key is in account settings)
+*  Commit and push all files from terminal
+*  Go to the details from the green tick or orange dot to see the actions in details.
+*  Go to Heroku and open app for testing. (Note that once we deployed using github actions and docker, our application in Heroku is running as a container otherwise it would be a python application)
 
 **Flasgger**
 
